@@ -6,10 +6,10 @@ import java.util.List;
 
 public class Person {
 
-    private String aName;
-    private LocalDate aDOB;
-    private String aEmail;
-    private final boolean purchasedPass = true;
+    private final String aName;
+    private final LocalDate aDOB;
+    private final String aEmail;
+    private boolean aPurchasedPass = true;
     private List<Person> aPerson = new ArrayList<Person>();
 
     public Person(String pName, LocalDate pDOB, String pEmail) {
@@ -19,7 +19,7 @@ public class Person {
         else if(pDOB.isAfter(LocalDate.now())){
             throw new IllegalArgumentException("Person DOB is not valid!");
         }
-        else if(pEmail.isBlank() || !pEmail.contains("@%.") /*|| !pEmail.contains("%.")*/){
+        else if(pEmail.isBlank() || !pEmail.contains("@")){
             throw new IllegalArgumentException("Person Email is not valid!");
         }
         this.aName = pName;
@@ -36,8 +36,28 @@ public class Person {
                 return false;
             }
         }
-        return this.purchasedPass;
+        return this.aPurchasedPass;
     }
 
+    public String getName() {
+        String name;
+        name = this.aName;
+        return name;
+    }
 
+    public LocalDate getDOB() {
+        LocalDate dob;
+        dob = aDOB;
+        return dob;
+    }
+
+    public String getEmailAddress() {
+        String email;
+        email = this.aEmail;
+        return email;
+    }
+
+    public boolean isPurchasedParkingPass() {
+        return purchaseParkingPass();
+    }
 }
