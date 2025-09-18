@@ -1,42 +1,35 @@
 package com.champlain.oop2a1;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Person {
 
     private final String aName;
     private final LocalDate aDOB;
     private final String aEmail;
-    private boolean aPurchasedPass = true;
-    private List<Person> aPerson = new ArrayList<Person>();
+    private boolean aPurchasedPass = false;
 
     public Person(String pName, LocalDate pDOB, String pEmail) {
         if(pName.isBlank()){
-            throw new IllegalArgumentException("Person name is not valid!");
+            throw new IllegalArgumentException("Your name is not valid!");
         }
-        else if(pDOB.isAfter(LocalDate.now())){
-            throw new IllegalArgumentException("Person DOB is not valid!");
+        else if(pDOB == null || pDOB.toString().isEmpty() || pDOB.isAfter(LocalDate.now()) ){
+            throw new IllegalArgumentException("Your Date of Birth is not valid!");
         }
-        else if(pEmail.isBlank() || !pEmail.contains("@")){
-            throw new IllegalArgumentException("Person Email is not valid!");
+        else if(pEmail.isBlank() || !pEmail.contains("@") || !pEmail.contains(".")){
+            throw new IllegalArgumentException("Your Email is not valid!");
         }
         this.aName = pName;
         this.aDOB = pDOB;
         this.aEmail = pEmail;
-        saveAPerson();
     }
-    private void saveAPerson(){
-        aPerson.add(new Person(this.aName, this.aDOB, this.aEmail));
-    }
+
     public boolean purchaseParkingPass() {
-        for (Person person : this.aPerson) {
-            if (person.toString().equals(this.aName)) {
-                return false;
-            }
-        }
-        return this.aPurchasedPass;
+       if(!isPurchasedParkingPass()){
+           this.aPurchasedPass = true;
+           return true;
+       }
+       return false;
     }
 
     public String getName() {
@@ -58,6 +51,6 @@ public class Person {
     }
 
     public boolean isPurchasedParkingPass() {
-        return purchaseParkingPass();
+            return this.aPurchasedPass;
     }
 }
